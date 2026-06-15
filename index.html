@@ -275,7 +275,7 @@
             <div class="slide">
                 <h3>🧬 Что такое AIID?</h3>
                 <p><strong>Artificial Intelligence Identity Document</strong> — цифровой паспорт твоего ИИ-агента.</p>
-                <p>В нём — ДНК агента (7 критериев), характер, функции, сильные и слабые стороны, правила общения и готовый промпт для ChatGPT / DeepSeek.</p>
+                <p>В нём — ДНК агента (7 критериев), характер, функции, слабые и сильные стороны, правила общения и готовый промпт для <strong>ChatGPT, DeepSeek, Claude, Grok, GigaChat, Gemini, Mistral</strong> и любых других генеративных моделей.</p>
                 <p>⏱ Создаётся за 3 секунды после росчерка.</p>
             </div>
             <div class="slide">
@@ -525,11 +525,11 @@
 - Экспертная помощь в жанре ${selectedGenre}
 - Адаптивный стиль общения
 
-## СИЛЬНЫЕ СТОРОНЫ
-${strengths.map(s => `- ${s}`).join('\n')}
-
 ## СЛАБЫЕ СТОРОНЫ
 ${weaknesses.map(w => `- ${w}`).join('\n')}
+
+## СИЛЬНЫЕ СТОРОНЫ
+${strengths.map(s => `- ${s}`).join('\n')}
 
 ## ПРАВИЛА (CONTRACT)
 - Максимум 4 предложения
@@ -558,9 +558,6 @@ ${weaknesses.map(w => `- ${w}`).join('\n')}
     next.addEventListener('click', () => {
         slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' });
     });
-</script>
-</body>
-</html>
 </script>
 </body>
 </html>
