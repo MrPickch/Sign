@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SIGN — AIID для твоего агента</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: #f0f0f0;
+            line-height: 1.4;
+        }
+
+        /* === ГРИД И КОНТЕЙНЕР ПО ТВОЕМУ ТЗ === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 120px;
+        }
+
+        /* Адаптив: на маленьких экранах уменьшаем отступы */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 60px;
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+        }
+
+        /* ТЕКСТОВЫЕ БЛОКИ НЕ ШИРЕ 640px */
+        .text-block {
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* === СЕТКА 12 КОЛОНОК (упрощённо, но гибко) === */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        /* === ТИПОГРАФИКА === */
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .gold {
+            color: #ffd700;
+        }
+        .text-large {
+            font-size: 20px;
+            color: #cccccc;
+            text-align: center;
+        }
+        .text-center {
+            text-align: center;
+        }
+
+        /* === КНОПКИ === */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        .btn-primary {
+            background-color: #ffd700;
+            color: #0a0a0a;
+        }
+        .btn-primary:hover {
+            background-color: #e5c100;
+            transform: scale(1.02);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 215, 0, 0.1);
+        }
+
+        /* === КАРТОЧКИ ЖАНРОВ === */
+        .genre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+            margin: 40px 0;
+        }
+        .genre-card {
+            background: #111111;
+            border: 1px solid #2a2a2a;
+            border-radius: 24px;
+            padding: 16px 8px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .genre-card.selected {
+            border-color: #ffd700;
+            background: #1a1a1a;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        /* === CANVAS === */
+        .canvas-area {
+            margin: 40px auto;
+            text-align: center;
+        }
+        canvas {
+            background: black;
+            border: 2px solid #333;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        /* === БЛОК ЦЕН === */
+        .price-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            margin: 48px 0;
+        }
+        .price-card {
+            background: #111111;
+            border: 1px solid #2a2a2a;
+            border-radius: 32px;
+            padding: 32px 24px;
+            text-align: center;
+            min-width: 260px;
+            flex: 1;
+        }
+        .price {
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffd700;
+            margin: 20px 0;
+        }
+
+        hr {
+            border-color: #2a2a2a;
+            margin: 40px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 48px 0 32px;
+            color: #666;
+            font-size: 14px;
+        }
+        button {
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- ШАПКА -->
+    <div style="text-align: center; padding: 48px 0 24px;">
+        <div style="font-size: 28px; font-weight: 700; letter-spacing: 4px;">══ SIGN ══</div>
+        <div style="margin-top: 8px; color: #ffd700;">Artificial Intelligence Identity Document</div>
+    </div>
+
+    <!-- ГЛАВНЫЙ ЗАГОЛОВОК -->
+    <h1>Создание <span class="gold">AIID</span><br>для вашего ИИ агента</h1>
+    <div class="text-large text-block">
+        Росчерк пальцем → уникальный цифровой паспорт → готовый агент за $10
+    </div>
+
+    <!-- 1. ВЫБОР ЖАНРА -->
+    <h2 style="margin-top: 64px;">01. Выбери жанр</h2>
+    <div class="genre-grid" id="genreGrid">
+        <!-- 20 жанров заполнятся js -->
+    </div>
+    <div id="selectedGenreDisplay" class="text-center" style="margin-top: 8px; font-size: 14px; color: #aaa;"></div>
+
+    <!-- 2. РОСЧЕРК -->
+    <h2 style="margin-top: 64px;">02. Нарисуй свой знак</h2>
+    <div class="canvas-area">
+        <canvas id="signCanvas" width="500" height="500"></canvas>
+        <div style="margin-top: 16px;">
+            <button class="btn btn-secondary" id="clearBtn">✖ Очистить</button>
+        </div>
+    </div>
+
+    <!-- 3. ЦЕНЫ -->
+    <h2>03. Получи AIID</h2>
+    <div class="price-row">
+        <div class="price-card">
+            <div style="font-size: 20px; font-weight: 600;">AIID паспорт</div>
+            <div class="price">$10 <span style="font-size: 16px; color:#aaa;">/ 1000₽</span></div>
+            <div>✅ Полный AIID.md</div>
+            <div>✅ Готовый промпт</div>
+            <div>✅ Мгновенная выдача</div>
+            <button class="btn btn-primary" id="buyAutoBtn" style="margin-top: 24px;">Купить AIID за $10</button>
+        </div>
+        <div class="price-card">
+            <div style="font-size: 20px; font-weight: 600;">AIID + Сопровождение</div>
+            <div class="price">$50</div>
+            <div>✅ Всё из базового</div>
+            <div>✅ Помощь с промптом</div>
+            <div>✅ Настройка агента</div>
+            <div>✅ Консультация (час)</div>
+            <button class="btn btn-secondary" id="buySupportBtn" style="margin-top: 24px;">Заказать</button>
+        </div>
+    </div>
+
+    <div class="text-block text-center" style="margin: 32px auto;">
+        🔹 Оплата USDT (TRC20/BEP20) автоматически · ЮMoney вручную<br>
+        🔹 После оплаты — моментальная ссылка на скачивание AIID.md
+    </div>
+
+    <hr>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <p>© 2026 SIGN — xPandify / Эйдос</p>
+        <p style="margin-top: 8px;">Вопросы и консультации: @AImAn_xPandify</p>
+    </footer>
+</div>
+
+<script>
+    // ========================
+    // 20 ЖАНРОВ (полный список)
+    // ========================
+    const genres = [
+        "Спорт", "Крипта", "Творчество", "Образование", "Соцсети",
+        "Авто", "Бизнес", "Психология", "Фитнес/ЗОЖ", "IT/Программирование",
+        "Юриспруденция", "Финансы", "Маркетинг", "Путешествия", "Фото/Видео",
+        "Дизайн/UI/UX", "Здоровье/Медицина", "Дом/Ремонт", "Кулинария", "Игры/Гейминг"
+    ];
+
+    let selectedGenre = genres[0];
+    let signaturePoints = [];   // будет хранить массив точек
+
+    // Отрисовка сетки жанров
+    const genreGrid = document.getElementById('genreGrid');
+    genres.forEach(genre => {
+        const card = document.createElement('div');
+        card.className = 'genre-card';
+        if (genre === selectedGenre) card.classList.add('selected');
+        card.innerText = genre;
+        card.onclick = () => {
+            document.querySelectorAll('.genre-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedGenre = genre;
+            document.getElementById('selectedGenreDisplay').innerText = `Выбран жанр: ${genre}`;
+        };
+        genreGrid.appendChild(card);
+    });
+    document.getElementById('selectedGenreDisplay').innerText = `Выбран жанр: ${selectedGenre}`;
+
+    // ========================
+    // CANVAS (рисование)
+    // ========================
+    const canvas = document.getElementById('signCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#ffd700';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    let drawing = false;
+
+    function getCanvasCoords(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        let clientX, clientY;
+        if (e.touches) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
+        }
+        let x = (clientX - rect.left) * scaleX;
+        let y = (clientY - rect.top) * scaleY;
+        x = Math.min(Math.max(0, x), canvas.width);
+        y = Math.min(Math.max(0, y), canvas.height);
+        return { x, y };
+    }
+
+    function startDraw(e) {
+        drawing = true;
+        const { x, y } = getCanvasCoords(e);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x+0.5, y+0.5);
+        ctx.stroke();
+        signaturePoints = [{ x, y, time: Date.now() }];
+        e.preventDefault();
+    }
+
+    function draw(e) {
+        if (!drawing) return;
+        const { x, y } = getCanvasCoords(e);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        signaturePoints.push({ x, y, time: Date.now() });
+        e.preventDefault();
+    }
+
+    function endDraw(e) {
+        if (!drawing) return;
+        drawing = false;
+        e.preventDefault();
+        if (signaturePoints.length < 5) {
+            alert("Слишком короткий росчерк. Проведи линию длиннее.");
+        } else {
+            console.log("Росчерк сохранён, точек:", signaturePoints.length);
+        }
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        signaturePoints = [];
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('touchstart', startDraw);
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', endDraw);
+    document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+    clearCanvas();
+
+    // ========================
+    // ОПЛАТА (заглушка + генерация AIID)
+    // ========================
+    function generateDummyAIID() {
+        if (!signaturePoints.length) {
+            alert("Сначала нарисуй росчерк!");
+            return null;
+        }
+        // Эмуляция ДНК
+        const dna = {
+            risk: Math.floor(Math.random() * 8) + 2,
+            speed: Math.floor(Math.random() * 8) + 2,
+            creativity: Math.floor(Math.random() * 8) + 2,
+            verbality: Math.floor(Math.random() * 8) + 2,
+            empathy: Math.floor(Math.random() * 8) + 2,
+            autonomy: Math.floor(Math.random() * 8) + 2,
+            precision: Math.floor(Math.random() * 8) + 2
+        };
+        const agentName = "Призрак";
+        const aiid = `AIID-${selectedGenre.toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+        const content = `# AIID: ${aiid}
+# Версия: 1.0
+# Жанр: ${selectedGenre.toLowerCase()}
+# Уникальный идентификатор личности агента
+
+## ДНК (из твоего росчерка)
+Риск: ${dna.risk}/10 | Скорость: ${dna.speed}/10 | Креатив: ${dna.creativity}/10
+Вербальность: ${dna.verbality}/10 | Эмпатия: ${dna.empathy}/10
+Автономность: ${dna.autonomy}/10 | Точность: ${dna.precision}/10
+
+## ХАРАКТЕР (SOUL)
+Ты — ${agentName}. Родился из твоего росчерка. Жанр: ${selectedGenre}.
+
+## ФУНКЦИИ
+- Экспертная помощь в жанре ${selectedGenre}
+- Адаптивный стиль общения
+
+## СИЛЬНЫЕ СТОРОНЫ
+Уникальный характер, основанный на твоём росчерке
+
+## СЛАБЫЕ СТОРОНЫ
+Требует уточнений по сложным задачам
+
+## ПРАВИЛА (CONTRACT)
+- Максимум 4 предложения
+- Если не знаешь — скажи "нет данных"
+
+## ПРОМПТ (скопируй в нейросеть)
+Ты — ${agentName}, AI-агент в жанре ${selectedGenre}. Твоя ДНК: риск ${dna.risk}, скорость ${dna.speed}. Отвечай коротко и по делу.`;
+        return { content, filename: `${aiid}.md` };
+    }
+
+    document.getElementById('buyAutoBtn').addEventListener('click', () => {
+        const fileData = generateDummyAIID();
+        if (!fileData) return;
+        alert(`✅ ДЕМО-РЕЖИМ: AIID "${fileData.filename}" готов.\n💰 После подключения оплаты файл будет скачиваться автоматически.\nСейчас просто показываем структуру.`);
+        // Здесь будет реальное создание счёта в NOWPayments (позже)
+    });
+
+    document.getElementById('buySupportBtn').addEventListener('click', () => {
+        alert("📞 Свяжитесь с нами в Telegram: @testtesttest для заказа сопровождения за $50.");
+    });
+</script>
+</body>
+</html>
