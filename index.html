@@ -18,14 +18,12 @@
             line-height: 1.4;
         }
 
-        /* === ГРИД И КОНТЕЙНЕР ПО ТВОЕМУ ТЗ === */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 120px;
         }
 
-        /* Адаптив: на маленьких экранах уменьшаем отступы */
         @media (max-width: 1200px) {
             .container {
                 padding: 0 60px;
@@ -37,21 +35,18 @@
             }
         }
 
-        /* ТЕКСТОВЫЕ БЛОКИ НЕ ШИРЕ 640px */
         .text-block {
             max-width: 640px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* === СЕТКА 12 КОЛОНОК (упрощённо, но гибко) === */
         .grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 24px;
         }
 
-        /* === ТИПОГРАФИКА === */
         h1 {
             font-size: 56px;
             font-weight: 700;
@@ -83,7 +78,6 @@
             text-align: center;
         }
 
-        /* === КНОПКИ === */
         .btn {
             display: inline-block;
             padding: 14px 32px;
@@ -112,7 +106,6 @@
             background-color: rgba(255, 215, 0, 0.1);
         }
 
-        /* === КАРТОЧКИ ЖАНРОВ === */
         .genre-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -136,7 +129,6 @@
             box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
         }
 
-        /* === CANVAS === */
         .canvas-area {
             margin: 40px auto;
             text-align: center;
@@ -152,7 +144,6 @@
             touch-action: none;
         }
 
-        /* === БЛОК ЦЕН === */
         .price-row {
             display: flex;
             flex-wrap: wrap;
@@ -175,6 +166,18 @@
             color: #ffd700;
             margin: 20px 0;
         }
+        .support-contact {
+            margin-top: 20px;
+            padding: 12px;
+            background: #1a1a1a;
+            border-radius: 60px;
+            display: inline-block;
+        }
+        .support-contact a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 600;
+        }
 
         hr {
             border-color: #2a2a2a;
@@ -196,13 +199,11 @@
 <body>
 
 <div class="container">
-    <!-- ШАПКА -->
     <div style="text-align: center; padding: 48px 0 24px;">
         <div style="font-size: 28px; font-weight: 700; letter-spacing: 4px;">══ SIGN ══</div>
         <div style="margin-top: 8px; color: #ffd700;">Artificial Intelligence Identity Document</div>
     </div>
 
-    <!-- ГЛАВНЫЙ ЗАГОЛОВОК -->
     <h1>Создание <span class="gold">AIID</span><br>для вашего ИИ агента</h1>
     <div class="text-large text-block">
         Росчерк пальцем → уникальный цифровой паспорт → готовый агент за $10
@@ -210,9 +211,7 @@
 
     <!-- 1. ВЫБОР ЖАНРА -->
     <h2 style="margin-top: 64px;">01. Выбери жанр</h2>
-    <div class="genre-grid" id="genreGrid">
-        <!-- 20 жанров заполнятся js -->
-    </div>
+    <div class="genre-grid" id="genreGrid"></div>
     <div id="selectedGenreDisplay" class="text-center" style="margin-top: 8px; font-size: 14px; color: #aaa;"></div>
 
     <!-- 2. РОСЧЕРК -->
@@ -233,7 +232,7 @@
             <div>✅ Полный AIID.md</div>
             <div>✅ Готовый промпт</div>
             <div>✅ Мгновенная выдача</div>
-            <button class="btn btn-primary" id="buyAutoBtn" style="margin-top: 24px;">Купить AIID за $10</button>
+            <button class="btn btn-primary" id="buyAutoBtn" style="margin-top: 24px;">Получить AIID твоего агента за $10</button>
         </div>
         <div class="price-card">
             <div style="font-size: 20px; font-weight: 600;">AIID + Сопровождение</div>
@@ -242,7 +241,9 @@
             <div>✅ Помощь с промптом</div>
             <div>✅ Настройка агента</div>
             <div>✅ Консультация (час)</div>
-            <button class="btn btn-secondary" id="buySupportBtn" style="margin-top: 24px;">Заказать</button>
+            <div class="support-contact">
+                📞 <a href="https://t.me/Aiman_xPandify" target="_blank">@Aiman_xPandify</a>
+            </div>
         </div>
     </div>
 
@@ -253,7 +254,6 @@
 
     <hr>
 
-    <!-- ПОДВАЛ -->
     <footer>
         <p>© 2026 SIGN — xPandify / Эйдос</p>
         <p style="margin-top: 8px;">Вопросы и консультации: @AImAn_xPandify</p>
@@ -262,17 +262,17 @@
 
 <script>
     // ========================
-    // 20 ЖАНРОВ (полный список)
+    // 20 ЖАНРОВ (НОВЫЙ ПОРЯДОК)
     // ========================
     const genres = [
         "Спорт", "Крипта", "Творчество", "Образование", "Соцсети",
         "Авто", "Бизнес", "Психология", "Фитнес/ЗОЖ", "IT/Программирование",
-        "Юриспруденция", "Финансы", "Маркетинг", "Путешествия", "Фото/Видео",
-        "Дизайн/UI/UX", "Здоровье/Медицина", "Дом/Ремонт", "Кулинария", "Игры/Гейминг"
+        "Юриспруденция", "Кулинария", "Игры/Гейминг", "Маркетинг", "Путешествия",
+        "Фото/Видео", "Дизайн/UI/UX", "Здоровье/Медицина", "Дом/Ремонт", "Финансы"
     ];
 
     let selectedGenre = genres[0];
-    let signaturePoints = [];   // будет хранить массив точек
+    let signaturePoints = [];
 
     // Отрисовка сетки жанров
     const genreGrid = document.getElementById('genreGrid');
@@ -372,14 +372,13 @@
     clearCanvas();
 
     // ========================
-    // ОПЛАТА (заглушка + генерация AIID)
+    // ДЕМО-РЕЖИМ ПОКАЗА AIID
     // ========================
     function generateDummyAIID() {
         if (!signaturePoints.length) {
             alert("Сначала нарисуй росчерк!");
             return null;
         }
-        // Эмуляция ДНК
         const dna = {
             risk: Math.floor(Math.random() * 8) + 2,
             speed: Math.floor(Math.random() * 8) + 2,
@@ -427,11 +426,6 @@
         const fileData = generateDummyAIID();
         if (!fileData) return;
         alert(`✅ ДЕМО-РЕЖИМ: AIID "${fileData.filename}" готов.\n💰 После подключения оплаты файл будет скачиваться автоматически.\nСейчас просто показываем структуру.`);
-        // Здесь будет реальное создание счёта в NOWPayments (позже)
-    });
-
-    document.getElementById('buySupportBtn').addEventListener('click', () => {
-        alert("📞 Свяжитесь с нами в Telegram: @testtesttest для заказа сопровождения за $50.");
     });
 </script>
 </body>
