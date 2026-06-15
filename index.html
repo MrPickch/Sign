@@ -41,12 +41,6 @@
             margin-right: auto;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-        }
-
         h1 {
             font-size: 56px;
             font-weight: 700;
@@ -60,11 +54,6 @@
             letter-spacing: -0.01em;
             margin-bottom: 32px;
             text-align: center;
-        }
-        h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
         }
         .gold {
             color: #ffd700;
@@ -106,6 +95,7 @@
             background-color: rgba(255, 215, 0, 0.1);
         }
 
+        /* Жанры */
         .genre-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -120,8 +110,8 @@
             text-align: center;
             font-size: 15px;
             font-weight: 500;
-            transition: all 0.2s;
             cursor: pointer;
+            transition: all 0.2s;
         }
         .genre-card.selected {
             border-color: #ffd700;
@@ -129,6 +119,7 @@
             box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
         }
 
+        /* Canvas */
         .canvas-area {
             margin: 40px auto;
             text-align: center;
@@ -144,6 +135,59 @@
             touch-action: none;
         }
 
+        /* Слайдер (презентация) */
+        .slider-container {
+            margin: 60px auto;
+            background: #111111;
+            border-radius: 32px;
+            padding: 32px 24px;
+            border: 1px solid #2a2a2a;
+            max-width: 800px;
+        }
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 32px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+        .slide {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            background: #1a1a1a;
+            border-radius: 28px;
+            padding: 32px;
+        }
+        .slide h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        .slide p, .slide li {
+            font-size: 18px;
+            color: #cccccc;
+            margin-bottom: 12px;
+        }
+        .slide ul {
+            margin-left: 24px;
+        }
+        .slider-nav {
+            text-align: center;
+            margin-top: 24px;
+        }
+        .slider-nav button {
+            background: #2a2a2a;
+            border: none;
+            color: #ffd700;
+            padding: 8px 20px;
+            margin: 0 8px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        /* Цены */
         .price-row {
             display: flex;
             flex-wrap: wrap;
@@ -178,12 +222,10 @@
             text-decoration: none;
             font-weight: 600;
         }
-
         hr {
             border-color: #2a2a2a;
             margin: 40px 0;
         }
-
         footer {
             text-align: center;
             padding: 48px 0 32px;
@@ -193,6 +235,10 @@
         button {
             background: none;
             border: none;
+        }
+        @media (max-width: 600px) {
+            .slide h3 { font-size: 22px; }
+            .slide p, .slide li { font-size: 16px; }
         }
     </style>
 </head>
@@ -209,12 +255,12 @@
         Росчерк пальцем → уникальный цифровой паспорт → готовый агент за $10
     </div>
 
-    <!-- 1. ВЫБОР ЖАНРА -->
+    <!-- 01. ВЫБОР ЖАНРА -->
     <h2 style="margin-top: 64px;">01. Выбери жанр</h2>
     <div class="genre-grid" id="genreGrid"></div>
     <div id="selectedGenreDisplay" class="text-center" style="margin-top: 8px; font-size: 14px; color: #aaa;"></div>
 
-    <!-- 2. РОСЧЕРК -->
+    <!-- 02. РОСЧЕРК -->
     <h2 style="margin-top: 64px;">02. Нарисуй свой знак</h2>
     <div class="canvas-area">
         <canvas id="signCanvas" width="500" height="500"></canvas>
@@ -223,8 +269,47 @@
         </div>
     </div>
 
-    <!-- 3. ЦЕНЫ -->
-    <h2>03. Получи AIID</h2>
+    <!-- 03. СЛАЙДЕР (ПРЕЗЕНТАЦИЯ SIGN) -->
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <div class="slide">
+                <h3>🧬 Что такое AIID?</h3>
+                <p><strong>Artificial Intelligence Identity Document</strong> — цифровой паспорт твоего ИИ-агента.</p>
+                <p>В нём — ДНК агента (7 критериев), характер, функции, сильные и слабые стороны, правила общения и готовый промпт для ChatGPT / DeepSeek.</p>
+                <p>⏱ Создаётся за 3 секунды после росчерка.</p>
+            </div>
+            <div class="slide">
+                <h3>📐 Как росчерк становится ДНК?</h3>
+                <p>Скорость → Быстрота реакции</p>
+                <p>Размах → Склонность к риску</p>
+                <p>Углы → Креативность</p>
+                <p>Плавность → Точность</p>
+                <p>Нажатие → Эмпатия</p>
+                <p>Симметрия → Многословность</p>
+                <p>Длина → Автономность</p>
+                <p style="margin-top: 12px;">⚡ Каждый твой штрих меняет характер агента.</p>
+            </div>
+            <div class="slide">
+                <h3>📄 Пример AIID</h3>
+                <p><strong># AIID: AIID-SPORT-7F3A9B2C</strong><br>Жанр: спорт</p>
+                <p>ДНК: риск 8, скорость 9, креатив 6<br>Ты — Штурм. Родился из резкого росчерка.<br>Функции: анализ тренировок, мотивация.<br>Сильные стороны: быстр, решителен.<br>Слабые стороны: краток, не для бесед.</p>
+                <p>⬇️ Промпт готов к копированию в нейросеть.</p>
+            </div>
+            <div class="slide">
+                <h3>✨ Философия SIGN</h3>
+                <p>«Оставь свой знак — получи агента».</p>
+                <p>SIGN — это дверь в экосистему xPandify / Эйдос, где у каждого агента есть душа.</p>
+                <p>Мы создаём не ботов, а цифровых спутников, которые отражают твой характер.</p>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button id="prevSlide">◀ Назад</button>
+            <button id="nextSlide">Вперёд ▶</button>
+        </div>
+    </div>
+
+    <!-- 04. ЦЕНЫ -->
+    <h2>04. Получи AIID</h2>
     <div class="price-row">
         <div class="price-card">
             <div style="font-size: 20px; font-weight: 600;">AIID паспорт</div>
@@ -253,7 +338,6 @@
     </div>
 
     <hr>
-
     <footer>
         <p>© 2026 SIGN — xPandify / Эйдос</p>
         <p style="margin-top: 8px;">Вопросы и консультации: @AImAn_xPandify</p>
@@ -262,7 +346,7 @@
 
 <script>
     // ========================
-    // 20 ЖАНРОВ (НОВЫЙ ПОРЯДОК)
+    // 20 ЖАНРОВ (порядок: Кулинария и Игры в центре, Финансы и Дом/Ремонт последние)
     // ========================
     const genres = [
         "Спорт", "Крипта", "Творчество", "Образование", "Соцсети",
@@ -372,13 +456,25 @@
     clearCanvas();
 
     // ========================
-    // ДЕМО-РЕЖИМ ПОКАЗА AIID
+    // ДЕМО-ГЕНЕРАЦИЯ AIID (с реальными словарями имён и сторон)
     // ========================
-    function generateDummyAIID() {
+    const nameDict = {
+        high_risk_speed: ["Штурм", "Ураган", "Молния", "Цунами", "Вихрь"],
+        high_creativity: ["Вензель", "Архитектор", "Фантаст", "Эскиз", "Каламбур"],
+        high_risk_only: ["Смерч", "Буран", "Тайфун", "Вулкан", "Обрыв"],
+        high_empathy: ["Хранитель", "Друг", "Забота", "Эмпат", "Тихий"],
+        high_autonomy: ["Странник", "Вольный", "Путник", "Кочевник", "Пилигрим"],
+        high_precision: ["Часовщик", "Аналитик", "Детектив", "Перфекционист", "Швейцарец"],
+        balanced: ["Эйдос", "Нейтраль", "Спектр", "Гармония", "Эхо"],
+        default: ["Призрак", "Кузнечик", "Знак", "Эфемер", "Силуэт"]
+    };
+
+    function generateRealisticDummyAIID() {
         if (!signaturePoints.length) {
             alert("Сначала нарисуй росчерк!");
             return null;
         }
+        // Эмуляция ДНК, но с разбросом, чтобы не было скучно
         const dna = {
             risk: Math.floor(Math.random() * 8) + 2,
             speed: Math.floor(Math.random() * 8) + 2,
@@ -388,7 +484,29 @@
             autonomy: Math.floor(Math.random() * 8) + 2,
             precision: Math.floor(Math.random() * 8) + 2
         };
-        const agentName = "Призрак";
+        let agentName = "Призрак";
+        if (dna.risk >= 8 && dna.speed >= 7) agentName = nameDict.high_risk_speed[Math.floor(Math.random() * nameDict.high_risk_speed.length)];
+        else if (dna.creativity >= 8) agentName = nameDict.high_creativity[Math.floor(Math.random() * nameDict.high_creativity.length)];
+        else if (dna.risk >= 9) agentName = nameDict.high_risk_only[Math.floor(Math.random() * nameDict.high_risk_only.length)];
+        else if (dna.empathy >= 8) agentName = nameDict.high_empathy[Math.floor(Math.random() * nameDict.high_empathy.length)];
+        else if (dna.autonomy >= 8) agentName = nameDict.high_autonomy[Math.floor(Math.random() * nameDict.high_autonomy.length)];
+        else if (dna.precision >= 8) agentName = nameDict.high_precision[Math.floor(Math.random() * nameDict.high_precision.length)];
+        else if (Object.values(dna).every(v => v >= 4 && v <= 7)) agentName = nameDict.balanced[Math.floor(Math.random() * nameDict.balanced.length)];
+        else agentName = nameDict.default[Math.floor(Math.random() * nameDict.default.length)];
+
+        const strengths = [];
+        if (dna.speed >= 7) strengths.push("мгновенно реагирует на запросы");
+        if (dna.creativity >= 7) strengths.push("выдаёт нестандартные идеи");
+        if (dna.empathy >= 7) strengths.push("чутко понимает контекст");
+        if (dna.precision >= 7) strengths.push("редко ошибается в фактах");
+        if (strengths.length === 0) strengths.push("стабилен и предсказуем");
+
+        const weaknesses = [];
+        if (dna.speed <= 3) weaknesses.push("медленно формулирует ответ");
+        if (dna.verbality <= 3) weaknesses.push("слишком краток, не всегда понятен");
+        if (dna.precision <= 3) weaknesses.push("склонен к фактическим ошибкам");
+        if (weaknesses.length === 0) weaknesses.push("иногда бывает излишне многословен");
+
         const aiid = `AIID-${selectedGenre.toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
         const content = `# AIID: ${aiid}
 # Версия: 1.0
@@ -408,10 +526,10 @@
 - Адаптивный стиль общения
 
 ## СИЛЬНЫЕ СТОРОНЫ
-Уникальный характер, основанный на твоём росчерке
+${strengths.map(s => `- ${s}`).join('\n')}
 
 ## СЛАБЫЕ СТОРОНЫ
-Требует уточнений по сложным задачам
+${weaknesses.map(w => `- ${w}`).join('\n')}
 
 ## ПРАВИЛА (CONTRACT)
 - Максимум 4 предложения
@@ -423,10 +541,26 @@
     }
 
     document.getElementById('buyAutoBtn').addEventListener('click', () => {
-        const fileData = generateDummyAIID();
+        const fileData = generateRealisticDummyAIID();
         if (!fileData) return;
         alert(`✅ ДЕМО-РЕЖИМ: AIID "${fileData.filename}" готов.\n💰 После подключения оплаты файл будет скачиваться автоматически.\nСейчас просто показываем структуру.`);
     });
+
+    // ========================
+    // Слайдер (навигация)
+    // ========================
+    const slider = document.getElementById('slider');
+    const prev = document.getElementById('prevSlide');
+    const next = document.getElementById('nextSlide');
+    prev.addEventListener('click', () => {
+        slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' });
+    });
+    next.addEventListener('click', () => {
+        slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
